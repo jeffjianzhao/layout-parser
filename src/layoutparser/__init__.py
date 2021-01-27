@@ -1,4 +1,4 @@
-__version__ = "0.1.1"
+__version__ = "0.1.3"
 
 from .elements import (
     Interval, Rectangle, Quadrilateral, 
@@ -16,4 +16,8 @@ from .ocr import (
 
 from .models import (
     Detectron2LayoutModel
+)
+
+from .io import (
+    load_json
 )

@@ -8,10 +8,14 @@ MODEL_CATALOG = {
     },
     "PubLayNet": {
         "faster_rcnn_R_50_FPN_3x": "https://www.dropbox.com/s/dgy9c10wykk4lq4/model_final.pth?dl=1",
-        "mask_rcnn_R_50_FPN_3x": "https://www.dropbox.com/s/d9fc9tahfzyl6df/model_final.pth?dl=1"
+        "mask_rcnn_R_50_FPN_3x": "https://www.dropbox.com/s/d9fc9tahfzyl6df/model_final.pth?dl=1",
+        "mask_rcnn_X_101_32x8d_FPN_3x": "https://www.dropbox.com/s/57zjbwv6gh3srry/model_final.pth?dl=1"
     },
     "PrimaLayout": {
         "mask_rcnn_R_50_FPN_3x": "https://www.dropbox.com/s/h7th27jfv19rxiy/model_final.pth?dl=1"
+    },
+    "NewspaperNavigator": {
+        'faster_rcnn_R_50_FPN_3x': 'https://www.dropbox.com/s/6ewh6g8rqt2ev3a/model_final.pth?dl=1',
     }
 }
 
@@ -23,17 +27,23 @@ CONFIG_CATALOG = {
     },
     "PubLayNet": {
         "faster_rcnn_R_50_FPN_3x": "https://www.dropbox.com/s/f3b12qc4hc0yh4m/config.yml?dl=1",
-        "mask_rcnn_R_50_FPN_3x": "https://www.dropbox.com/s/u9wbsfwz4y0ziki/config.yml?dl=1"
+        "mask_rcnn_R_50_FPN_3x": "https://www.dropbox.com/s/u9wbsfwz4y0ziki/config.yml?dl=1",
+        "mask_rcnn_X_101_32x8d_FPN_3x": "https://www.dropbox.com/s/nau5ut6zgthunil/config.yaml?dl=1"
     },
     "PrimaLayout": {
         "mask_rcnn_R_50_FPN_3x": "https://www.dropbox.com/s/yc92x97k50abynt/config.yaml?dl=1"
+    },
+    "NewspaperNavigator": {
+        'faster_rcnn_R_50_FPN_3x': 'https://www.dropbox.com/s/wnido8pk4oubyzr/config.yml?dl=1',
     }
 }
+
 
 class DropboxHandler(HTTPURLHandler):
     """
     Supports download and file check for dropbox links
     """
+
     def _get_supported_prefixes(self):
         return ["https://www.dropbox.com"]
 
@@ -45,7 +55,7 @@ class LayoutParserHandler(PathHandler):
     """
     Resolve anything that's in LayoutParser model zoo.
     """
-    
+
     PREFIX = "lp://"
 
     def _get_supported_prefixes(self):
@@ -54,7 +64,7 @@ class LayoutParserHandler(PathHandler):
     def _get_local_path(self, path):
         model_name = path[len(self.PREFIX):]
         dataset_name, *model_name, data_type = model_name.split('/')
-        
+
         if data_type == 'weight':
             model_url = MODEL_CATALOG[dataset_name]['/'.join(model_name)]
         elif data_type == 'config':
